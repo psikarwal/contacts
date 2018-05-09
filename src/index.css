@@ -78,7 +78,7 @@ body, .app {
 
 .list-contacts {
   padding-top: 60px;
-  max-width: 50%;
+  max-width: 100%;
 }
 .list-contacts-top {
   position: fixed;

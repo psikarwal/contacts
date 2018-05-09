@@ -83,7 +83,8 @@ class ImageInput extends React.Component {
     const { value } = this.state
 
     const style = {
-      position: 'relative'
+      position: 'relative',
+      backgroundColor: '#DDD'
     }
 
     if (value) {

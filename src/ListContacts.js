@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 import CreateContact from './CreateContact.js'
+//import ShowDetails from './ShowDetails.js'
 
 class ListContacts extends Component {
   static propTypes = {
@@ -13,7 +14,8 @@ class ListContacts extends Component {
 
   state = {
     query: '',
-    show: false
+    show: false,
+    clicked: ''
   }
 
   show(){
@@ -33,10 +35,14 @@ class ListContacts extends Component {
     this.setState({ query: '' })
   }
 
+  onClicks = (event) => {
+    this.setState({clicked: event.target.id})
+  }
+
   render() {
     const { contacts, onDeleteContact, onCreateContact } = this.props
     const { query } = this.state
-
+    console.log(this.state.clicked)
     let showingContacts
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
@@ -75,15 +81,15 @@ class ListContacts extends Component {
             <button onClick={this.clearQuery}>Show all</button>
           </div>
         )}
-
-        <ol className='contact-list'>
+        <div >
+        <ol className='contact-list' style={{float: 'left', width: '45%'}}>
           {showingContacts.map((contact) => (
-            <li key={contact.id} className='contact-list-item'>
+            <li  key={contact.id} className='contact-list-item'>
               <div className='contact-avatar' style={{
                 backgroundImage: `url(${contact.img})`
               }}/>
               <div className='contact-details'>
-                <p>{contact.name}</p>
+              <button id ={contact.id}style ={{background:'white', border: '0px', textAlign: 'left', cursor: 'pointer', padding:'0', margin: '0'}}  onClick={(contact) => this.onClicks(contact)}>{contact.name}</button>
                 <p>{contact.rating}</p>
               </div>
               <button onClick={() => onDeleteContact(contact)} className='contact-remove'>
@@ -92,6 +98,10 @@ class ListContacts extends Component {
             </li>
           ))}
         </ol>
+          <div style={{border: '1px solid #d5d8df', borderRadius: '4px', float: 'right', width: '45%', margin: '20px', padding: '20px', background: 'white'}}>
+          <h2>{JSON.stringify(contacts.filter(contact => contact.id === this.state.clicked)[0])}</h2>
+          </div>
+        </div>
       </div>
     )
   }
