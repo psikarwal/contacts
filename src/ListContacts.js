@@ -42,7 +42,7 @@ class ListContacts extends Component {
   render() {
     const { contacts, onDeleteContact, onCreateContact } = this.props
     const { query } = this.state
-    console.log(this.state.clicked)
+    console.log(45, contacts)
     let showingContacts
     if (query) {
       const match = new RegExp(escapeRegExp(query), 'i')
